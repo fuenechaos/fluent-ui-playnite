@@ -1,5 +1,20 @@
 ThemeApiVersion: 1.9.0
-Id: EpicMixer
-Name: EpicMixer
-Author: Mr.X
-Version: 1.0
+Id: Fluent UI
+Name: Fluent UI
+Author: FueneChaos
+Version: 1.1
+Constants:
+- "Grid View Settings"
+
+- GridViewBrush: Grid View Background
+
+
+- "Global Settings"
+
+- ScrollBarBrush: Accent Color
+
+
+- "Game Overview Settings"
+
+- GameOverviewSide(0,500): Game Overview Side Spacing
+- GameOverviewBottom(0,500): Game Overview Bottom Spacing

@@ -12,9 +12,9 @@
     
     <sys:Boolean x:Key="True">True</sys:Boolean>
     <sys:Boolean x:Key="False">False</sys:Boolean>
-    
+
     <FontFamily x:Key="FontIcoFont">/Fonts/icofont.ttf#icofont</FontFamily>
-    
+
     <pcon:BidirectionalEnumAndNumberConverter x:Key="BidirectionalEnumAndNumberConverter" />
     <pcon:BooleanToHiddenConverter x:Key="BooleanToHiddenConverter" />
     <pcon:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />

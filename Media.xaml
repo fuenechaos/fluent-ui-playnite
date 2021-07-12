@@ -11,7 +11,7 @@
     <TextBlock x:Key="UpdateDbIcon" Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" Foreground="{DynamicResource TextBrush}" />
     <TextBlock x:Key="AboutPlayniteIcon" Text="&#xE946;" FontFamily="Segoe MDL2 Assets" Foreground="{DynamicResource TextBrush}" />
     <TextBlock x:Key="ExitIcon" Text="&#xF78A;" FontFamily="Segoe MDL2 Assets" Foreground="OrangeRed" />
-    <TextBlock x:Key="SettingsIcon" Text="&#xE115;" FontFamily="Segoe MDL2 Assets" Foreground="{DynamicResource TextBrush}" />   
+    <TextBlock x:Key="SettingsIcon" Text="&#xE115;" FontFamily="Segoe MDL2 Assets" Foreground="{DynamicResource TextBrush}" />
     <TextBlock x:Key="PlayIcon" Text="&#xE768;" FontFamily="Segoe MDL2 Assets" Foreground="{DynamicResource TextBrush}" />
     <TextBlock x:Key="InstallIcon" Text="&#xE896;" FontFamily="Segoe MDL2 Assets" Foreground="{DynamicResource TextBrush}" />
     <TextBlock x:Key="LinksIcon" Text="&#xE71B;" FontFamily="Segoe MDL2 Assets" Foreground="{DynamicResource TextBrush}" />
@@ -37,15 +37,25 @@
     </DataTemplate>
 
     <DataTemplate x:Key="SearchTextIconTemplate">
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xE11A;" FontFamily="{DynamicResource IconFont}" FontSize="{DynamicResource FontSizeLarger}" Margin="0,6,0,0" Foreground="{DynamicResource GlyphBrush}" Padding="0,0,1,0" />
+        <StackPanel Orientation="Horizontal" UseLayoutRounding="True" RenderOptions.EdgeMode="Aliased" >
+            <TextBlock Text="&#xED1B;" FontFamily="{DynamicResource FontIcoFont}" FontSize="{DynamicResource FontSizeLarger}" Margin="0,4,0,0" Foreground="{DynamicResource GlyphBrush}" Padding="0,0,1,0" RenderTransformOrigin="0.5,0.5" >
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                        <SkewTransform AngleY="0" AngleX="0"/>
+                        <RotateTransform Angle="0"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
             <TextBlock Text="Search" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Foreground="{DynamicResource GlyphBrush}" Margin="8,0,0,3"/>
         </StackPanel>
-       </DataTemplate>
+    </DataTemplate>
     <BitmapImage x:Key="DefaultGameIcon" UriSource="{ThemeFile 'Images/applogo_dark.png'}" popt:Freeze="True" />
     <BitmapImage x:Key="DefaultGameCover" UriSource="{ThemeFile 'Images/playnite_cover_background.png'}" popt:Freeze="True" />
 
     <BitmapImage x:Key="PowerShellIcon" UriSource="{ThemeFile 'Images/powershell.ico'}" popt:Freeze="True" />
     <BitmapImage x:Key="PythonIcon" UriSource="{ThemeFile 'Images/python.ico'}" popt:Freeze="True" />
     <BitmapImage x:Key="CsharpIcon" UriSource="{ThemeFile 'Images/csharp.ico'}" popt:Freeze="True" />
+
 </ResourceDictionary>
