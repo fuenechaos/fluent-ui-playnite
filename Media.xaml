@@ -38,7 +38,7 @@
 
     <DataTemplate x:Key="SearchTextIconTemplate">
         <StackPanel Orientation="Horizontal" UseLayoutRounding="True" RenderOptions.EdgeMode="Aliased" >
-            <TextBlock Text="&#xED1B;" FontFamily="{DynamicResource FontIcoFont}" FontSize="{DynamicResource FontSizeLarger}" Margin="0,4,0,0" Foreground="{DynamicResource GlyphBrush}" Padding="0,0,1,0" RenderTransformOrigin="0.5,0.5" >
+            <TextBlock Text="&#xED1B;" FontFamily="{DynamicResource FontIcoFont}" FontSize="{DynamicResource FontSizeLarger}" Margin="10,4,0,0" Foreground="{DynamicResource TextBrush}" Padding="0,0,2,0" RenderTransformOrigin="0.5,0.5" >
                 <TextBlock.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleY="1" ScaleX="-1"/>
@@ -48,7 +48,7 @@
                     </TransformGroup>
                 </TextBlock.RenderTransform>
             </TextBlock>
-            <TextBlock Text="Search" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Foreground="{DynamicResource GlyphBrush}" Margin="8,0,0,3"/>
+            <TextBlock Text="Search" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Foreground="{DynamicResource TextBrush}" Margin="10,0,0,3"/>
         </StackPanel>
     </DataTemplate>
     <BitmapImage x:Key="DefaultGameIcon" UriSource="{ThemeFile 'Images/applogo_dark.png'}" popt:Freeze="True" />
