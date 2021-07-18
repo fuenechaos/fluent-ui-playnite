@@ -1,0 +1,33 @@
+ThemeApiVersion: 1.9.0
+Id: Fluent UI 
+Name: Fluent UI 
+Author: FueneChaos
+Version: 1.2
+Constants:
+- "GRID VIEW SETTINGS"
+
+- GridViewBrush: Grid View Background
+
+
+- "GLOBAL SETTINGS"
+
+- ScrollBarBrush: Accent Color
+- TVModeVisibility
+
+- "GAME OVERVIEW SETTNGS"
+
+- GameOverviewSide(0,200): Game Overview Side Spacing
+- GameOverviewBottom(0,100): Game Overview Bottom Spacing
+- GameTitleVisibility
+- SecondTitleIconVisibility
+
+- "EXTRA METADATA SETTINGS"
+
+- UseAbsoluteExtraMetadataPath: Use absolute path to your Playnite config folder.
+- ExtraMetadataPath: That path; no ending backslash.
+- DetailsViewLogoMaxHeight(0,1000): Details View Logo Height
+- DetailsViewLogoMaxWidth(0,1000): Details View Logo Width
+- DetailsViewLogoVisibility
+- GridViewLogoMaxHeight(0,1000): Grid View Logo Height
+- GridViewLogoMaxWidth(0,1000): Grid View Logo Width
+- GridViewLogoVisibility
