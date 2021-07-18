@@ -1,0 +1,490 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    mc:Ignorable="d">
+
+    <Style x:Key="ExplorerPanel" TargetType="{x:Type ExplorerPanel}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ExplorerPanel}">
+                    <Border BorderBrush="Transparent" 
+                            d:DesignWidth="200"
+                            d:DesignHeight="400">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderThickness" Value="0,0,0,0" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Settings DetailsListPosition}" Value="Left">
+                                        <Setter Property="BorderThickness" Value="0,0,1,0" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Settings ShowPanelSeparators}" Value="False">
+                                        <Setter Property="BorderThickness" Value="0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <DockPanel Background="Transparent" Margin="0,0,0,0">
+                            <ComboBox Name="PART_SelectFields" 
+                                  DockPanel.Dock="Top" Margin="2,8,2,5" MinHeight="35" BorderBrush="Transparent" />
+                            <ListBox Name="PART_SelectItems" 
+                                 DockPanel.Dock="Top" Margin="0,8,5,5"                                      
+                                 BorderThickness="0"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            </ListBox>
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MainPanel"  TargetType="{x:Type MainPanel}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type MainPanel}">
+                    <Grid Height="Auto" MaxWidth="{Settings GrdiDetailsWitdh}"
+                         Background="Transparent"
+                            d:DataContext="{x:Static DesignMainViewModel.DesignIntance}">
+                        <Grid Margin="0,0,0,0"  Width="{Settings GrdiDetailsWitdh}" MinWidth="220" HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <DockPanel Width="Auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left">
+
+                                <Border x:Name="PART_ElemMainMenu" Background="Transparent" MinHeight="46"
+                                    DockPanel.Dock="Left" Margin="14,0,0,0" Cursor="Hand" Grid.Row="0" 
+                                    WindowChrome.IsHitTestVisibleInChrome="True">
+                                    <TextBlock Text="&#xE700;" FontSize="20"
+										   FontFamily="Segoe MDL2 Assets"			 
+                                           Foreground="{DynamicResource TextBrush}"
+                                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+
+                            </DockPanel>
+                            <Image Source="{ThemeFile 'Images/icon.png'}" Grid.Row="1"
+                                   Height="25" RenderOptions.BitmapScalingMode="Fant" 
+                                   HorizontalAlignment="Center" Margin="0"/>
+
+                            <SearchBox x:Name="PART_TextMainSearch" MaxWidth="{Settings GrdiDetailsWitdh}" Grid.Row="3" DockPanel.Dock="Left" BorderBrush="Transparent" Margin="-12,20,0,14"
+                                        WindowChrome.IsHitTestVisibleInChrome="True" Height="40" BorderThickness="0" >
+                            </SearchBox>
+
+                            <StackPanel Name="Stack" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+
+                                <StackPanel.Resources>
+                                    <Style x:Key="ButtonBorder" TargetType="Border">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+                                    </Style>
+                                    <Style x:Key="TextBlock" TargetType="TextBlock" >
+                                        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+                                        <Setter Property="FontSize" Value="{DynamicResource FontSize}" />
+                                        <Setter Property="FontFamily" Value="{DynamicResource FontFamily}" />
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Border}}}"  Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource GlyphBrush}"/>
+                                            </DataTrigger>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="Opacity" Value="0.5" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <CheckBox x:Name="PART_ToggleFilter"
+                                      WindowChrome.IsHitTestVisibleInChrome="True"
+                                      DockPanel.Dock="Left" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <CheckBox.Style>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+
+                                                        <Border Style="{StaticResource ButtonBorder}" Height="38"   Margin="5,0,5,0" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Name="IconFilter" Text="&#xE71C;"
+                                                                           FontFamily="Segoe MDL2 Assets" FontSize="20"
+                                                                           Style="{StaticResource TextBlock}"/>
+                                                                <Border CornerRadius="3" Width="16" Height="15"
+                                                                    Margin="-4,8,0,0" Name="TextFilterBack"
+                                                                    HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Top"
+                                                                    Background="{DynamicResource ScrollBarBrush}">
+                                                                    <TextBlock Text="--" FontSize="9" Name="TextFilter"
+                                                                           Foreground="{DynamicResource TextBrush}"
+                                                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                </Border>
+
+                                                            </StackPanel>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="Tag" Value="{StaticResource True}">
+                                                                <Setter Property="Text" Value="ON" TargetName="TextFilter" />
+                                                                <Setter Property="Foreground" Value="{DynamicResource GlyphBrush}" TargetName="IconFilter" />
+                                                                <Setter Property="Background" Value="{DynamicResource ScrollBarBrush}" TargetName="TextFilterBack"  />
+                                                                <Setter Property="ToolTip" Value="{DynamicResource LOCFilterActiveLabel}" />
+                                                            </Trigger>
+                                                            <Trigger Property="Tag" Value="{StaticResource False}">
+                                                                <Setter Property="ToolTip" Value="{DynamicResource LOCFilterInactiveLabel}" />
+                                                                <Setter Property="Visibility" Value="Collapsed"  TargetName="TextFilter" />
+                                                                <Setter Property="Visibility" Value="Collapsed" TargetName="TextFilterBack"  />
+                                                            </Trigger>
+                                                            <Trigger Property="IsMouseOver" Value="True" >
+                                                                <Setter Property="Opacity" Value="1" />
+                                                            </Trigger>
+                                                            <Trigger Property="IsMouseOver" Value="False">
+                                                                <Setter Property="Opacity" Value="0.1" TargetName="IconFilter"/>
+
+                                                                <Setter Property="Opacity" Value="0.5" TargetName="TextFilterBack"/>
+                                                            </Trigger>
+
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </CheckBox.Style>
+                                </CheckBox>
+
+                                <Border x:Name="PART_ElemViewMenu"
+                                    
+                                    DockPanel.Dock="Left" Margin="5,6,0,6"
+                                    WindowChrome.IsHitTestVisibleInChrome="True" Cursor="Hand"
+                                    MinWidth="30" Padding="7" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="&#xE8FD;" FontSize="20" Name="IconGroup"
+										   FontFamily="Segoe MDL2 Assets"			 
+                                           Foreground="{DynamicResource TextBrush}" 
+                                           VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                                    </TextBlock>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True" >
+                                                    <Setter Property="Opacity" Value="1" />
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="False" >
+                                                    <Setter Property="Opacity" Value="0.1" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+
+                                <Border
+                                    WindowChrome.IsHitTestVisibleInChrome="True" 
+                                    DockPanel.Dock="Right" Height="38" Margin="5,0,0,0"
+                                    Cursor="Hand">
+                                    <Button Name="PART_ButtonSteamFriends"
+                                    Margin="0,0,0,0"
+                                    Background="Transparent"
+                                    Padding="0" BorderThickness="0"
+                                    ToolTip="{DynamicResource LOCSteamFriendsTooltip}" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Text="&#xE902;" FontFamily="Segoe MDL2 Assets" FontSize="20"
+                                               Style="{StaticResource TextBlock}" Margin="7,0,7,0"/>
+                                        <Button.Style>
+                                            <Style TargetType="Button" BasedOn="{StaticResource SimpleButton}">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True" >
+                                                        <Setter Property="Opacity" Value="1" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver" Value="False" >
+                                                        <Setter Property="Opacity" Value="0.1" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Border>
+
+                                <CheckBox x:Name="PART_ToggleNotifications"
+                                      WindowChrome.IsHitTestVisibleInChrome="True"
+                                      DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <CheckBox.Style>
+                                        <Style TargetType="ToggleButton">
+                                            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Border Cursor="Hand" Style="{StaticResource ButtonBorder}" MinWidth="35" Padding="0,0,0,0" Margin="0,6,0,6">
+                                                            <Grid>
+                                                                <TextBlock Style="{StaticResource TextBlock}" Name="IconNotification" Text="&#xED0D;" FontFamily="Segoe MDL2 Assets" FontSize="20"/>
+                                                                <Border CornerRadius="3" Width="15" Height="15"
+                                                                    Margin="20,0,0,5" Name="NotificationCount"  
+                                                                    HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Top"
+                                                                    Background="{DynamicResource ScrollBarBrush}">
+                                                                    <TextBlock Text="{Api Notifications.Count}" FontSize="12"                                                              
+                                                                           Foreground="{DynamicResource TextBrush}"
+                                                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                </Border>
+                                                            </Grid>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Opacity" Value="1"/>
+                                                            </Trigger>
+                                                            <Trigger Property="IsMouseOver" Value="False" >
+                                                                <Setter Property="Opacity" Value="0.1" TargetName="IconNotification"/>
+                                                                <Setter Property="Opacity" Value="0.5" TargetName="NotificationCount"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Api Notifications.Count}" Value="0">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </CheckBox.Style>
+                                </CheckBox>
+                            </StackPanel>
+
+                            <DockPanel Grid.Row="1">
+                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left"
+                                        HorizontalAlignment="Center" Margin="10,0">
+                                    <Grid>
+
+                                        <ProgressBar Name="PART_ProgressGlobal" />
+                                        <TextBlock Name="PART_TextProgressText"
+                                               VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                               Style="{DynamicResource BaseTextBlockStyle}" Margin="5,0,5,0"/>
+                                    </Grid>
+                                    <Button Name="PART_ButtonProgressCancel"
+                                        Content="&#xE8BB;" Padding="0"
+                                        WindowChrome.IsHitTestVisibleInChrome="True"
+                                        Margin="5,0,5,0" Height="25" Width="60" FontFamily="{DynamicResource IconFont}" />
+                                </StackPanel>
+                            </DockPanel>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SettingsButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="Grid">
+                        <Grid x:Name="GridOff" >
+                            <StackPanel x:Name="StackPanel" Orientation="Horizontal" Margin="0">
+                                <Border x:Name="SelectedRectangle" IsHitTestVisible="False" Visibility="Hidden"
+                                    BorderThickness="5,0,0,0" BorderBrush="{DynamicResource ScrollBarBrush}" Height="Auto"/>
+                                <TextBlock x:Name="Icon" Text="&#xE115;" Foreground="{DynamicResource TextBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,8,5,5" FontFamily="{DynamicResource IconFont}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                <TextBlock x:Name="Text" Text="Settings" Foreground="{DynamicResource TextBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,7,5,5" Margin="0,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid x:Name="GridOn" Visibility="Hidden">
+                            <StackPanel x:Name="StackPanelOn" Orientation="Horizontal" Margin="0">
+                                <Border x:Name="SelectedRectangleOn" IsHitTestVisible="False" Visibility="Visible"
+                                    BorderThickness="5,0,0,0" BorderBrush="{DynamicResource ScrollBarBrush}" Height="Auto"/>
+                                <TextBlock x:Name="IconOn" Text="&#xE115;"  Foreground="{DynamicResource ScrollBarBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,8,5,5" FontFamily="{DynamicResource IconFont}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                <TextBlock x:Name="TextOn" Text="Settings"  Foreground="{DynamicResource ScrollBarBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,7,5,5" Margin="0,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="GridOn" />
+                            <Setter Property="Visibility" Value="Hidden" TargetName="GridOff" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="FriendsButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="Grid">
+                        <Grid x:Name="GridOff" >
+                            <StackPanel x:Name="StackPanel" Orientation="Horizontal" Margin="0">
+                                <Border x:Name="SelectedRectangle" IsHitTestVisible="False" Visibility="Hidden"
+                                    BorderThickness="5,0,0,0" BorderBrush="{DynamicResource ScrollBarBrush}" Height="Auto"/>
+                                <TextBlock x:Name="Icon" Text="&#xE902;" Foreground="{DynamicResource TextBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,9,5,5" FontFamily="{DynamicResource IconFont}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                                <TextBlock x:Name="Text" Text="Friends" Foreground="{DynamicResource TextBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,8,5,5" Margin="0,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid x:Name="GridOn" Visibility="Hidden">
+                            <StackPanel x:Name="StackPanelOn" Orientation="Horizontal" Margin="0">
+                                <Border x:Name="SelectedRectangleOn" IsHitTestVisible="False" Visibility="Visible"
+                                    BorderThickness="5,0,0,0" BorderBrush="{DynamicResource ScrollBarBrush}" Height="Auto"/>
+                                <TextBlock x:Name="IconOn" Text="&#xE902;"  Foreground="{DynamicResource ScrollBarBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,9,5,5" FontFamily="{DynamicResource IconFont}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                                <TextBlock x:Name="TextOn" Text="Friends"  Foreground="{DynamicResource ScrollBarBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,8,5,5" Margin="0,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="GridOn" />
+                            <Setter Property="Visibility" Value="Hidden" TargetName="GridOff" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TVModeButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="Grid">
+                        <Grid x:Name="GridOff" >
+                            <StackPanel x:Name="StackPanel" Orientation="Horizontal" Margin="0">
+                                <Border x:Name="SelectedRectangle" IsHitTestVisible="False" Visibility="Hidden"
+                                    BorderThickness="5,0,0,0" BorderBrush="{DynamicResource ScrollBarBrush}" Height="Auto"/>
+                                <TextBlock x:Name="Icon" Text="&#xE7F4;" Foreground="{DynamicResource TextBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,9,4,5" FontFamily="{DynamicResource IconFont}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                                <TextBlock x:Name="Text" Text="TV Mode" Foreground="{DynamicResource TextBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,8,5,5" Margin="0,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid x:Name="GridOn" Visibility="Hidden">
+                            <StackPanel x:Name="StackPanelOn" Orientation="Horizontal" Margin="0">
+                                <Border x:Name="SelectedRectangleOn" IsHitTestVisible="False" Visibility="Visible"
+                                    BorderThickness="5,0,0,0" BorderBrush="{DynamicResource ScrollBarBrush}" Height="Auto"/>
+                                <TextBlock x:Name="IconOn" Text="&#xE7F4;"  Foreground="{DynamicResource ScrollBarBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,9,4,5" FontFamily="{DynamicResource IconFont}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                                <TextBlock x:Name="TextOn" Text="TV Mode"  Foreground="{DynamicResource ScrollBarBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5,8,5,5" Margin="0,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="GridOn" />
+                            <Setter Property="Visibility" Value="Hidden" TargetName="GridOff" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type LibraryGridView}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type LibraryGridView}">
+                    <DockPanel Background="{TemplateBinding Background}"
+                               d:DesignWidth="1280" d:DesignHeight="960" Margin="-1,-1,0,-1"
+                               d:DataContext="{x:Static DesignMainViewModel.DesignIntance}" VerticalAlignment="Stretch" >
+
+                        <Grid  DockPanel.Dock="{Settings DetailsListPosition}" Background="{DynamicResource PanelSeparatorBrush}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid Margin="0,0,0,0"  MaxHeight="{Binding RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}, Path=ActualHeight}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <MainPanel Grid.Row="0" Style="{StaticResource MainPanel}"  Width="{Settings GrdiDetailsWitdh}" MinWidth="220"  VerticalAlignment="Top" HorizontalContentAlignment="Stretch"/>
+
+                               <Grid Grid.Row="1"
+                                 Width="{Settings GrdiDetailsWitdh}" MinWidth="220" HorizontalAlignment="Stretch">
+                                <ExpanderEx x:Name="Expand" Grid.Row="0" IsExpanded="False" Background="Transparent" Margin="0,0,0,0" >
+                                    <ExpanderEx.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="&#xE8F1;" Foreground="{DynamicResource ScrollBarBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="0,9,5,5" FontFamily="{DynamicResource IconFont}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Explorer Panel" Foreground="{DynamicResource ScrollBarBrush}" FontSize="{DynamicResource FontSizeLarger}" FontWeight="Light" Padding="5" Margin="0"/>
+                                        </StackPanel>
+                                    </ExpanderEx.Header>
+                                   <ExplorerPanel Style="{StaticResource ExplorerPanel}" Margin="0,0,0,-5" />
+
+                                </ExpanderEx>
+                            </Grid>
+                             </Grid>
+                            </Grid>
+                            <StackPanel x:Name="Stack" Grid.Row="1"  Margin="0"  >
+                                <Button Command="{Binding OpenFullScreenCommand}" Style="{StaticResource TVModeButton}" Visibility="{DynamicResource TVModeVisibility}" VerticalAlignment="Stretch" Padding="0,5" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"  Margin="0,20,0,0" BorderBrush="Transparent"/>
+                                <Button Command="{Binding OpenSteamFriendsCommand}" Style="{StaticResource FriendsButton}" VerticalAlignment="Stretch" Padding="0,5" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"  Margin="0,20,0,0" BorderBrush="Transparent"/>
+                                <Button Command="{Binding OpenSettingsCommand}" Style="{StaticResource SettingsButton}" VerticalAlignment="Stretch" Padding="0,5" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Margin="0,20,0,0" BorderBrush="Transparent"/>
+                            </StackPanel>
+                            
+                        </Grid>
+                        <Grid Margin="0,0,-2,0">
+
+                            <DockPanel>
+
+                                <GridViewGameOverview MinHeight="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Path=ActualHeight}" x:Name="PART_ControlGameView" Width="Auto" DockPanel.Dock="Top" VerticalAlignment="Top" Foreground="{x:Null}" />
+                                <Grid DockPanel.Dock="Bottom" Background="{DynamicResource GridViewBrush}" Margin="0,0,-1,-1" >
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <ExtendedListBox x:Name="PART_ListGames" Padding="0" ScrollToSelectedBehavior.Enabled="True"
+                                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                             ScrollViewer.PanningMode="VerticalOnly"
+                                             ItemContainerStyle="{DynamicResource GridViewItemStyle}"
+                                             SelectionMode="Extended"
+                                             VirtualizingPanel.IsVirtualizing="True"
+                                             VirtualizingPanel.VirtualizationMode="Recycling"
+                                             DockPanel.Dock="Left" 
+                                             BorderThickness="0" Margin="0,0,0,0" Height="Auto" Grid.RowSpan="2" Background="{x:Null}" BorderBrush="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" HorizontalAlignment="Left" MinHeight="1">
+                                        <ExtendedListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <GameListItem Style="{StaticResource GridViewItemTemplate}" />
+                                            </DataTemplate>
+                                        </ExtendedListBox.ItemTemplate>
+                                    </ExtendedListBox>
+                                    <Border BorderThickness="0" Width="Auto" Grid.Row="1" CornerRadius="{DynamicResource GridCornerRadius}" Padding="0" Margin="0,0,0,5" Background="{DynamicResource GridDetailsBrush}" HorizontalAlignment="Center">
+                                        <StackPanel Margin="5" Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                                            <Label FontFamily="{DynamicResource SymbolFont}" Content="&#xE1A3;" Margin="5,0,10,0" VerticalAlignment="Stretch" UseLayoutRounding="True" RenderOptions.EdgeMode="Aliased"/>
+                                            <SliderWithPopup x:Name="PART_SliderZoom" />
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                            </DockPanel>
+                        </Grid>
+                    </DockPanel>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
