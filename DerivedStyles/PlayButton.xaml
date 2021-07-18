@@ -17,8 +17,8 @@
                                 Opacity="1" CornerRadius="1" Background="{DynamicResource PlayColorBrush}" ClipToBounds="True">
                         </Border>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="&#x25B6;" FontFamily="{DynamicResource SymbolFont}" FontSize="{DynamicResource FontSizeLarge}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,3,6"/>
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0,0,0,5" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"
+                            <TextBlock Text="&#x25B6;" FontFamily="{DynamicResource SymbolFont}" FontSize="{DynamicResource FontSizeLarge}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,3,1"/>
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0,0,0,0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"
                                           Content="PLAY" TextBlock.FontFamily="{DynamicResource FontFamily}" TextBlock.FontSize="{DynamicResource FontSizeLarge}" TextBlock.FontWeight="DemiBold"/>
                         </StackPanel>
 
@@ -38,6 +38,7 @@
                 <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}" />
                 <Setter Property="Background" Value="{DynamicResource GlyphBrush}" />
             </Trigger>
+            
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

@@ -15,36 +15,28 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Grid>
-                        <Border x:Name="Shadow"  CornerRadius="5" Background="Black" Margin="{Settings ItemSpacingMargin}" Padding="0" BorderBrush="Black" >
-                            <Border.Effect>
-                                <BlurEffect Radius="10" KernelType="Gaussian" RenderingBias="Performance" RenderOptions.BitmapScalingMode="LowQuality"/>
-                            </Border.Effect>
-                        </Border>
-                        <Grid Background="{DynamicResource GridItemBackgroundBrush}" Panel.ZIndex="1"
-                          Margin="{Settings ItemSpacingMargin}"
+                    <Grid Margin="{Settings ItemSpacingMargin}">
+                        <Grid Background="{DynamicResource GridItemBackgroundBrush}" 
+                          
                           x:Name="ItemGrid">
                         <Border x:Name="SelectionBorder" CornerRadius="5" BorderThickness="3.5" Margin="-3.8">
                             </Border>
                             <ContentPresenter />
 
                         </Grid>
+                        
                     </Grid>
                     <ControlTemplate.Triggers>
 
-
-                            
-
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" Value="White" TargetName="SelectionBorder"/>
-                            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"/>
                             <Setter Property="Canvas.ZIndex" Value="0" />
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation
                                             Storyboard.TargetProperty="RenderTransform.ScaleX"
-                                            To="1.025"
+                                            To="1.03"
                                             Duration="0:0:0.4">
                                             <DoubleAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut"/>
@@ -52,7 +44,7 @@
                                         </DoubleAnimation>
                                         <DoubleAnimation
                                             Storyboard.TargetProperty="RenderTransform.ScaleY"
-                                            To="1.025"
+                                            To="1.03"
                                             Duration="0:0:0.4">
                                             <DoubleAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut"/>
@@ -86,7 +78,7 @@
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="BorderBrush" Value="{DynamicResource ScrollBarBrush}" TargetName="SelectionBorder"/>
-                            <Setter Property="Canvas.ZIndex" Value="0"/>
+                            <Setter Property="Canvas.ZIndex" Value="1"/>
                         </Trigger>
                         <DataTrigger Binding="{Settings ShowGridItemBackground}" Value="False">
                             <Setter Property="Background" Value="Transparent" TargetName="ItemGrid" />

@@ -9,7 +9,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type GameListItem}">
                     <Border BorderThickness="{Settings GridItemMargin}">
-                        <StackPanel Name="PART_PanelHost"
+                        <StackPanel Name="PART_PanelHost" 
                                     d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}">
 
                             <Grid Width="{Settings GridItemWidth}"
@@ -17,7 +17,7 @@
                                 <!-- Rounded mask (stretches to fill Grid) -->
                                 <Border Name="Mask" Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="{DynamicResource GridCornerRadius}">
                                     <Border.CacheMode>
-                                        <BitmapCache RenderAtScale="2" />
+                                        <BitmapCache  />
                                     </Border.CacheMode>
                                 </Border>
                                 <Border>
@@ -27,8 +27,8 @@
                                    DockPanel.Dock="Left" Margin="0,0,8,0" />
                                 </Border>
 
-                                <Image Name="PART_ImageCover" StretchDirection="Both"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                <Image Name="PART_ImageCover" StretchDirection="Both" RenderOptions.BitmapScalingMode="Fant"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
                                    Stretch="{Settings CoverArtStretch}" />
                                 <Border Background="#99000000" x:Name="TextGameName"   Visibility="Collapsed">
                                     <TextBlock Text="{Binding DisplayName}"

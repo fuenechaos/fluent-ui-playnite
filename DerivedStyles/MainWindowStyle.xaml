@@ -2,6 +2,45 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
+    <Style x:Key="WindowBarButtonCustom" TargetType="Button">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <Setter Property="Margin" Value="5,0,5,0" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+
+
+                    <TextBlock FontFamily="Segoe MDL2 Assets" 
+                               Foreground="{TemplateBinding Foreground}"
+                               FontSize="13"
+                               Padding="{TemplateBinding Padding}"
+                               Text="{TemplateBinding Content}" >
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="1"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource ScrollBarBrush}" />
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource GlyphBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="MainWindowStyle" TargetType="WindowBase">
         <Setter Property="Background" Value="{DynamicResource WindowBackgourndBrush}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -29,10 +68,10 @@
                                     <DockPanel DockPanel.Dock="Top" LastChildFill="False">
                                         <TextBlock Text="{TemplateBinding Title}" DockPanel.Dock="Left" Margin="10,3,0,0" VerticalAlignment="Center"
                                                    Opacity="0.75" Style="{DynamicResource BaseTextBlockStyle}" x:Name="PART_TextTitle" />
-                                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0,3,5,0">
-                                            <Button Style="{DynamicResource WindowBarButton}" Content="0" x:Name="PART_ButtonMinimize"/>
-                                            <Button Style="{DynamicResource WindowBarButton}" Content="1" x:Name="PART_ButtonMaximize" />
-                                            <Button Style="{DynamicResource WindowBarButton}" Content="r" x:Name="PART_ButtonClose"/>
+                                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0,10,5,0">
+                                            <Button Style="{DynamicResource WindowBarButtonCustom}" Content="&#xE921;" x:Name="PART_ButtonMinimize" FontFamily="{DynamicResource IconFont}" Padding="5,0,5,0" Margin="6,1,6,0"/>
+                                            <Button Style="{DynamicResource WindowBarButtonCustom}" Content="&#xE922;" x:Name="PART_ButtonMaximize" FontFamily="{DynamicResource IconFont}" Padding="6,0" />
+                                            <Button Style="{DynamicResource WindowBarButtonCustom}" Content="&#xE8BB;" x:Name="PART_ButtonClose" FontFamily="{DynamicResource IconFont}" Padding="5,0" Margin="6,0"/>
                                         </StackPanel>
                                     </DockPanel>
                                 </DockPanel>
@@ -41,7 +80,7 @@
                     </AdornerDecorator>
                     <ControlTemplate.Triggers>
                         <Trigger Property="WindowState" Value="Maximized">
-                            <Setter Property="Content" Value="2" TargetName="PART_ButtonMaximize"/>
+                            <Setter Property="Content" Value="&#xE923;" TargetName="PART_ButtonMaximize"/>
                             <Setter Property="Padding" Value="8" TargetName="WindowBorder"/>
                         </Trigger>
                         <DataTrigger Binding="{Binding HasChildWindow, Mode=OneWay, RelativeSource={RelativeSource Self}, TargetNullValue=False}" Value="True">
